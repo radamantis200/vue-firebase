@@ -6,7 +6,7 @@ import router from './router'
 
 import firebase from 'firebase';
 import 'firebase/firestore';
-import firebaseConfig from '@/config/firebase';
+import firebaseConfig from './config/firebase';
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore();
 
