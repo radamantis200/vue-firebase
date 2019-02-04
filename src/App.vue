@@ -1,12 +1,22 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+  <main>
+    <v-app>
+      <v-content>
+        <GuestNavigation/>
+        <v-container class="mt-3 mb-3">
+          <router-view/>
+        </v-container>
+        <FooterApp></FooterApp>
+      </v-content>     
+    </v-app>
+  </main>
 </template>
 
 <script>
+import  GuestNavigation  from "@/navigations/guest";
+import FooterApp from '@/components/footer';
 export default {
+  components: {GuestNavigation,FooterApp},
   name: 'App'
 }
 </script>
