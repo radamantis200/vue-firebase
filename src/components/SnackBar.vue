@@ -1,8 +1,8 @@
 <template>
-  <v-snackBar :timeout="timeout" :color="color" v-model="showSnack">
+  <v-snackbar :timeout="timeout" :color="color" v-model="showSnack">
     {{text}}
     <v-btn dark flat @click="showSnack = false">{{$t('messages.close')}}</v-btn>
-  </v-snackBar>
+  </v-snackbar>
 </template>
 
 <script>

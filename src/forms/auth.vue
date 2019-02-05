@@ -11,21 +11,21 @@
     </v-responsive>
 
     <v-form id="nativeForm" v-model="valid">
-      <v-text-field :label="$t(auth.mail)" v-model="email" :rules="emailRules" name="email"></v-text-field>
+      <v-text-field :label="$t('auth.email')" v-model="email" :rules="emailRules" name="email"></v-text-field>
       <v-text-field
-        :label="$t(auth.password)"
+        :label="$t('auth.password')"
         v-model="password"
         :rules="passwordRules"
         name="password"
         type="password"
       ></v-text-field>
       <v-text-field
-        :label="$t(auth.password_confirmation)"
+        v-if="action === 'register'"
+        :label="$t('auth.password_confirmation')"
         v-model="password_confirmation"
         :rules="passwordConfirmationRules"
         name="password_confirmation"
         type="password"
-        v-if="acction === register"
       ></v-text-field>
     </v-form>
     <v-btn @click="submit" color="teal" dark :disabled="!valid">{{$t(`${action}.submit`)}}</v-btn>
