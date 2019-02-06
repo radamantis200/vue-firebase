@@ -11,6 +11,7 @@
 <script>
 import AppSnackBar from "@/components/SnackBar";
 import AuthForm from "@/forms/auth";
+import { db } from "@/main";
 export default {
   components: { AppSnackBar, AuthForm },
   name: "Register",
@@ -21,6 +22,33 @@ export default {
       message: "",
       timeout: 5000
     };
+  },
+  methods: {
+    register(user) {
+      this.$store
+        .dispatch("firebaseRegister", user)
+        .then((userRegistered) => {
+          const data = {
+            uid: userRegistered.uid,
+            email: user.email,
+            role: "customer"
+          };
+          db.collection("users")
+            .doc(userRegistered.uid)
+            .set(data)
+            .then(() => {
+              this.$store.commit("setRole", data.role);
+              this.$router.push("/");
+            });
+        })
+        .catch(error => {
+          this.message = error.message.substr(0, 60);
+          this.snackBar = true;
+          setTimeout(() => {
+            this.snackBar = false;
+          }, this.timeout);
+        });
+    }
   }
 };
 </script>
