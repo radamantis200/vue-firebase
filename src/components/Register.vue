@@ -27,14 +27,17 @@ export default {
     register(user) {
       this.$store
         .dispatch("firebaseRegister", user)
-        .then((userRegistered) => {
+        .then(userRegistered => {
           const data = {
-            uid: userRegistered.uid,
+            uid: userRegistered.user.uid,
             email: user.email,
             role: "customer"
           };
+          console.log(userRegistered);
+          console.log(userRegistered.user.uid);
+          console.log(data);
           db.collection("users")
-            .doc(userRegistered.uid)
+            .doc(userRegistered.user.uid)
             .set(data)
             .then(() => {
               this.$store.commit("setRole", data.role);
@@ -42,7 +45,7 @@ export default {
             });
         })
         .catch(error => {
-          this.message = error.message.substr(0, 60);
+          this.message = error.message.substr(0, 200);
           this.snackBar = true;
           setTimeout(() => {
             this.snackBar = false;

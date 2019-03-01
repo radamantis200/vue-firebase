@@ -7,10 +7,10 @@ export default {
         logged: false
     },
     actions: {
-        firebaseRegister: ({ commit }, user) => {
+        firebaseRegister: (commit, user) => {
             return firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
         },
-        firebaseLogin: ({ commit }, user) => {
+        firebaseLogin: ({commit}, user) => {
             return firebase.auth().signInWithEmailAndPassword(user.email, user.password);
         },
         firebaseLogout: () => {
@@ -29,6 +29,7 @@ export default {
                 state.user = null,
                     state.logged = false
             }
+            console.log(uid);
         },
         setRole: (state, role) => {
             state.role = role;
