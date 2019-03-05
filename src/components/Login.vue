@@ -28,8 +28,6 @@ export default {
           db.collection("users")
             .doc(data.user.uid)
             .onSnapshot(snapshot => {
-              console.log(snapshot.data());
-              this.$store.commit("setRole", snapshot.data().role);
               this.$router.push("/");
             });
         })

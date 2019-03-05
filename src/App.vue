@@ -1,23 +1,36 @@
 <template>
   <main>
     <v-app>
-      <v-content>
-        <GuestNavigation/>
+      <v-content v-if="$store.state.loaded">
+        <GuestNavigation v-if="role === 'guest'"/>
+        <AdminNavigation v-if="role === 'admin'"/>
         <v-container class="mt-3 mb-3">
           <router-view/>
         </v-container>
         <FooterApp></FooterApp>
       </v-content>     
+      <v-container v-else fill-height >
+        <v-layout flex align-center justify-center>
+          <v-progress-circular indeterminate :size="100" :width="10" color="purple"/>
+
+      
+        </v-layout>
+      </v-container>
     </v-app>
   </main>
 </template>
 
 <script>
 import  GuestNavigation  from "@/navigations/guest";
+import AdminNavigation from '@/navigations/admin'
 import FooterApp from '@/components/footer';
+import { mapGetters } from "vuex";
 export default {
-  components: {GuestNavigation,FooterApp},
-  name: 'App'
+  components: {GuestNavigation,FooterApp, AdminNavigation},
+  name: 'App',
+  computed: {
+    ...mapGetters(['role'])
+  },
 }
 </script>
 

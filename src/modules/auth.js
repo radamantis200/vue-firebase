@@ -29,7 +29,7 @@ export default {
                 state.user = null,
                     state.logged = false
             }
-            console.log(uid);
+    
         },
         setRole: (state, role) => {
             state.role = role;
