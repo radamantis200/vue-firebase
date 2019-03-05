@@ -1,8 +1,6 @@
 <template>
   <div>
-    <!-- <auth-form action="register" v-on:process="register($event)"/>
-    <app-snack-bar v-if="snackBar" :snack-Bar="snackBar" :text="message" :timeout="timeout"/>-->
-    <auth-form action="register" v-on:process="register($event)"/>
+    <auth-form action="login" v-on:process="login($event)"/>
 
     <app-snack-bar v-if="snackBar" :snack-bar="snackBar" :text="message" :timeout="timeout"/>
   </div>
@@ -14,8 +12,7 @@ import AuthForm from "@/forms/auth";
 import { db } from "@/main";
 export default {
   components: { AppSnackBar, AuthForm },
-  name: "Register",
-
+  name: "login",
   data() {
     return {
       snackBar: false,
@@ -24,21 +21,15 @@ export default {
     };
   },
   methods: {
-    register(user) {
+    login(user) {
       this.$store
-        .dispatch("firebaseRegister", user)
-        .then(userRegistered => {
-          const data = {
-            uid: userRegistered.user.uid,
-            email: user.email,
-            role: "customer"
-          };
-
+        .dispatch("firebaseLogin", user)
+        .then(data => {
           db.collection("users")
-            .doc(userRegistered.user.uid)
-            .set(data)
-            .then(() => {
-              this.$store.commit("setRole", data.role);
+            .doc(data.user.uid)
+            .onSnapshot(snapshot => {
+              console.log(snapshot.data());
+              this.$store.commit("setRole", snapshot.data().role);
               this.$router.push("/");
             });
         })
@@ -53,3 +44,6 @@ export default {
   }
 };
 </script>
+
+<style>
+</style>

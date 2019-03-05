@@ -7,7 +7,7 @@ export default {
         logged: false
     },
     actions: {
-        firebaseRegister: (commit, user) => {
+        firebaseRegister: ({commit}, user) => {
             return firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
         },
         firebaseLogin: ({commit}, user) => {
