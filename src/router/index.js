@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "@/components/home";
 import Register from "@/components/register";
 import Login from "@/components/login";
+import AdminHome from "@/components/administration/AdminHome";
 
 Vue.use(Router);
 
@@ -36,6 +37,13 @@ const router = new Router({
       component: Login,
       meta: { Auth: false, title: "Iniciar Sesión" },
       beforeEnter: (to, from, next) => beforeEnter(to, from, next)
+    },
+    {
+      path: "/admin",
+      name: "Admin",
+      component: AdminHome,
+      meta: { Auth: true, title: "Administración", role: "admin"},
+      children: []
     }
   ]
 });
